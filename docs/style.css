@@ -1,0 +1,141 @@
+/* Journalink site — same ink, paper and single red as the app. */
+
+@font-face { font-family: "Dela Gothic One"; src: url("fonts/DelaGothicOne-Regular.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "Zen Kaku Gothic New"; src: url("fonts/ZenKakuGothicNew-Regular.ttf") format("truetype"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Zen Kaku Gothic New"; src: url("fonts/ZenKakuGothicNew-Bold.ttf") format("truetype"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Zen Kaku Gothic New"; src: url("fonts/ZenKakuGothicNew-Black.ttf") format("truetype"); font-weight: 900; font-display: swap; }
+
+:root {
+  --ink: #111111;
+  --paper: #ffffff;
+  --muted: #595959;
+  --rule: #b8b8b8;
+  --red: #c8102e;
+  --frame: 3px;
+  --panel: 2.5px;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #f2f2f2; --paper: #111111; --muted: #a6a6a6; --rule: #474747; }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.6 "Zen Kaku Gothic New", "Hiragino Sans", system-ui, sans-serif;
+}
+
+a { color: var(--ink); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--red); outline-offset: 3px; }
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+.display { font-family: "Dela Gothic One", sans-serif; font-weight: 400; line-height: 1.05; letter-spacing: 0.01em; }
+.kicker { font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+/* Header + footer */
+
+.site-header { border-bottom: var(--frame) solid var(--ink); }
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 36px; height: 40px; }
+.brand span { font-family: "Dela Gothic One", sans-serif; font-size: 22px; }
+.logo-dark { display: none; }
+@media (prefers-color-scheme: dark) { .logo-light { display: none; } .logo-dark { display: inline; } }
+
+.nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.nav a { font-size: 13px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+  padding: 10px 12px; border: var(--panel) solid transparent; }
+.nav a[aria-current="page"] { border-bottom: 4px solid var(--red); }
+.nav a:hover { border-color: var(--ink); }
+
+.site-footer { border-top: var(--frame) solid var(--ink); margin-top: 72px; padding: 28px 0 40px; font-size: 14px; }
+.site-footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.site-footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
+
+/* Shared pieces */
+
+.panel { border: var(--panel) solid var(--ink); background: var(--paper); }
+.frame { border: var(--frame) solid var(--ink); }
+.tone { background-image: radial-gradient(var(--ink) 1px, transparent 1.5px); background-size: 6px 6px; }
+.speed {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 50% 50%, var(--paper) 0 26%, transparent 58%),
+    repeating-conic-gradient(from 0deg at 50% 50%, var(--ink) 0deg 1.1deg, transparent 1.1deg 6deg);
+}
+.button { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 20px;
+  background: var(--ink); color: var(--paper); text-decoration: none; font-weight: 900; font-size: 16px; }
+.button::before { content: ""; width: 11px; height: 11px; background: var(--red); flex: none; }
+.button.is-disabled { cursor: default; }
+
+/* Home */
+
+.hero { padding: 40px 0 8px; }
+.hero-panel { position: relative; display: grid; place-items: center; min-height: 320px; padding: 40px 16px; overflow: hidden; }
+/* An ellipse's corners cut into its box, so the padding keeps text well inside the curve. */
+.bubble { background: var(--paper); border: var(--panel) solid var(--ink); border-radius: 50%;
+  padding: 48px 72px; text-align: center; width: min(720px, 100%); }
+.bubble h1 { margin: 0; font-size: clamp(22px, 4.2vw, 40px); line-height: 1.15; }
+.hero-bar { display: flex; flex-wrap: wrap; border-top: var(--frame) solid var(--ink); }
+.hero-bar p { flex: 1 1 280px; margin: 0; padding: 14px 16px; font-weight: 700; }
+.hero-bar .button { flex: none; }
+
+.section-title { font-size: clamp(24px, 4vw, 34px); margin: 56px 0 16px; }
+
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.shots figure { margin: 0; }
+.shots img { display: block; width: 100%; height: auto; border: var(--frame) solid var(--ink); }
+.shots figcaption { margin-top: 8px; font-size: 14px; font-weight: 700; }
+
+.features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.feature { display: flex; min-height: 120px; }
+.feature .body { padding: 14px 16px; flex: 1; }
+.feature h3 { margin: 4px 0 6px; font-size: 20px; }
+.feature p { margin: 0; }
+.feature .art { width: 72px; flex: none; border-left: var(--panel) solid var(--ink); display: grid; place-items: center; }
+.feature .art span { background: var(--paper); border-radius: 50%; width: 44px; height: 44px; display: grid; place-items: center;
+  font-family: "Dela Gothic One", sans-serif; font-size: 20px; }
+
+.promise { display: flex; flex-wrap: wrap; align-items: stretch; margin-top: 8px; }
+.promise .label { background: var(--ink); color: var(--paper); padding: 16px 20px; display: flex; align-items: center; }
+.promise p { flex: 1 1 300px; margin: 0; padding: 16px 20px; font-weight: 700; }
+
+/* Text pages (privacy, support) */
+
+.doc { max-width: 720px; padding-top: 40px; }
+.doc h1 { font-size: clamp(34px, 7vw, 56px); margin: 8px 0 12px; }
+.doc .lede { font-size: 19px; font-weight: 700; }
+.doc h2 { font-family: "Dela Gothic One", sans-serif; font-weight: 400; font-size: 22px; margin: 40px 0 8px; }
+.doc ul { padding-left: 22px; }
+.doc li { margin: 6px 0; }
+.summary { display: flex; margin: 24px 0; }
+.summary .strip { width: 16px; flex: none; border-right: var(--panel) solid var(--ink); }
+.summary ul { margin: 0; padding: 14px 16px 14px 36px; font-weight: 700; }
+.meta { color: var(--muted); font-size: 14px; }
+
+details { border: var(--panel) solid var(--ink); margin: 8px 0; }
+summary { cursor: pointer; padding: 14px 16px; font-weight: 900; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-family: "Dela Gothic One", sans-serif; }
+details[open] summary::after { content: "–"; }
+details[open] summary { border-bottom: var(--panel) solid var(--ink); }
+details > div { padding: 4px 16px 12px; }
+
+.contact { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 16px; margin-top: 32px; }
+.contact p { margin: 0; font-weight: 700; }
+
+@media (max-width: 720px) {
+  .shots { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
+  .features { grid-template-columns: 1fr; }
+  .bubble { padding: 34px 40px; }
+  .hero-bar .button { width: 100%; justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
